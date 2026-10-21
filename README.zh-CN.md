@@ -89,7 +89,6 @@ DSH Hub 使用或参考了以下开源项目。参考项目没有随本仓库分
 - **DSH Plugin Hub（`dsh-plugin-hub`）** — MIT License — 插件目录结构、浏览和安装流程参考。https://github.com/dshplugin/dsh-plugin-hub
 - **dsh-undo-savepoint** — MIT License — 快照、恢复前备份和回滚安全参考。https://github.com/lire1131/dsh-undo-savepoint
 - **dsh-recovery** — 离线快照、回滚和安全模式设计参考。https://github.com/AndyZHENG0715/dsh-recovery
-- **dsh-app-controls** — 重启和刷新行为参考；DSH Hub 中的实现为独立实现，源码由用户提供。
 
 感谢上述项目的维护者和贡献者，也感谢 DeepSeek Harness 社区对插件和 profile 模型的文档与讨论。
 
