@@ -21,7 +21,7 @@ The application does not modify DeepSeek Harness itself. It reads DSH profiles, 
 - [DSH-Hub-0.2.1-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-win-x64.zip) — portable folder build
 - [SHA256SUMS.txt](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/SHA256SUMS.txt) — release checksums
 
-Release binaries are built from this repository. Their `data/self-test.json` has been redacted: local paths are replaced with `<data-dir>`, `<DSH_HOME>` and `<DSH_INSTALL>`, and no real API key or credentials file is included.
+Release binaries are built from this repository.
 
 ## Requirements
 
