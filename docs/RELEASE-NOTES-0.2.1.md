@@ -16,7 +16,7 @@
 - 安装包沙箱验证：自定义目录安装、覆盖升级、卸载均正常；卸载保留 `data` 与用户文件。
 - 刷新动作已实际执行并返回 `reloaded <pid>`。
 - 重启路由已验证发现本地端口且 `restartable:true`；为避免中断当前 DSH 会话，未在验证中实际触发 POST `/restart`。
-- Release 中的安装包和便携版已做脱敏处理：`data/self-test.json` 用 `<data-dir>`、`<DSH_HOME>`、`<DSH_INSTALL>` 替换本机路径，`keyMasked` 为 `***`，不包含真实 API Key 或 credentials 文件。
+
 
 ## 安装
 
