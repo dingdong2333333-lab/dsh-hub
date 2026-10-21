@@ -15,6 +15,14 @@ The application does not modify DeepSeek Harness itself. It reads DSH profiles, 
 - **Sessions and skills** — decode multi-frame zstd session logs, preview timelines, export JSONL, move sessions to the recycle bin, and create, edit, duplicate or delete user skills.
 - **Packaging** — portable Electron folder build and a single-EXE Inno Setup installer. The installer supports a custom install directory and avoids deleting user data on uninstall.
 
+## Download
+
+- [DSH-Hub-0.2.1-Setup.exe](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-Setup.exe) — single-file Windows installer
+- [DSH-Hub-0.2.1-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-win-x64.zip) — portable folder build
+- [SHA256SUMS.txt](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/SHA256SUMS.txt) — release checksums
+
+Release binaries are built from this repository. Their `data/self-test.json` has been redacted: local paths are replaced with `<data-dir>`, `<DSH_HOME>` and `<DSH_INSTALL>`, and no real API key or credentials file is included.
+
 ## Requirements
 
 - Windows 10 or 11, x64
