@@ -15,7 +15,8 @@
 - 便携版自检：`ok:true`、`version:0.2.1`、`DSH 0.2.1-rc.2`。
 - 安装包沙箱验证：自定义目录安装、覆盖升级、卸载均正常；卸载保留 `data` 与用户文件。
 - 刷新动作已实际执行并返回 `reloaded <pid>`。
-- 重启路由已验证发现端口 `13410` 且 `restartable:true`；为避免中断当前 DSH 会话，未在验证中实际触发 POST `/restart`。
+- 重启路由已验证发现本地端口且 `restartable:true`；为避免中断当前 DSH 会话，未在验证中实际触发 POST `/restart`。
+- Release 中的安装包和便携版已做脱敏处理：`data/self-test.json` 用 `<data-dir>`、`<DSH_HOME>`、`<DSH_INSTALL>` 替换本机路径，`keyMasked` 为 `***`，不包含真实 API Key 或 credentials 文件。
 
 ## 安装
 
@@ -24,5 +25,10 @@
 
 ## 校验
 
-- Setup SHA-256：`e075e0f38938e057ecb39d9259da0b9af219a1aa89257805a7bacb9b34032153`
-- 便携版 zip SHA-256：`0bd492b3f5127c2000b3dfd0f5fceae9f71e30b772dc451ee39d9febb52ed900`
+- Setup SHA-256：`3007a5ef8851f1baceb542a689eb33c76cc114715ea221ad26cb109b9e5925c8`
+- 便携版 zip SHA-256：`3fba95a0e7ee6c8ae0a4679923fc04057d4534d7a70f4e66f1bc26463fb9460f`
+
+## 说明
+
+- 开源许可证：Unlicense（公共领域）；第三方组件和参考项目保留各自许可证，见仓库 `THIRD_PARTY_NOTICES.md`。
+- 本项目及本介绍由 DeepSeek V4.1Flash 完成。仓库由 AI 生成，使用前请自行检查程序是否正常。
