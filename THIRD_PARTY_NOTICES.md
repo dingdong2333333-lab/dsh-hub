@@ -49,9 +49,6 @@ DSH's local files and CLI.
   MIT. Profile snapshots, pre-restore snapshots and rollback safety.
 - [AndyZHENG0715/dsh-recovery](https://github.com/AndyZHENG0715/dsh-recovery) —
   offline CLI snapshot/rollback/safe-mode ideas (evaluated, not bundled).
-- `dsh-app-controls` — source supplied by the user for this project; restart and
-  reload behavior was reimplemented in DSH Hub's main process.
-
 ## DSH
 
 DeepSeek Harness is a product of DeepSeek. DSH Hub is an independent local
