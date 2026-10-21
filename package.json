@@ -1,0 +1,37 @@
+{
+  "name": "dsh-hub",
+  "productName": "DSH Hub",
+  "version": "0.2.1",
+  "description": "A polished desktop control center for DeepSeek Harness plugins, sessions, and skills.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin-manager",
+    "electron",
+    "desktop"
+  ],
+  "author": "DSH Hub contributors",
+  "license": "Unlicense",
+  "private": true,
+  "type": "module",
+  "main": "src/main/main.js",
+  "engines": {
+    "node": ">=22.15"
+  },
+  "scripts": {
+    "postinstall": "node scripts/ensure-electron.mjs",
+    "start": "node scripts/dev.mjs",
+    "dev": "node scripts/dev.mjs",
+    "test": "node --test test/plugins.test.js test/sessions.test.js test/skills.test.js test/model.test.js test/logger.test.js test/parse-settings.test.js test/ipc-contract.test.js test/snapshots.test.js test/marketplace.test.js",
+    "test:watch": "node --test --watch test/plugins.test.js test/sessions.test.js test/skills.test.js test/model.test.js test/logger.test.js test/parse-settings.test.js test/ipc-contract.test.js test/snapshots.test.js test/marketplace.test.js",
+    "self-test": "node scripts/self-test.mjs",
+    "icon": "python scripts/make-icon.py",
+    "package:win": "node scripts/package-win.mjs",
+    "package:zip": "node scripts/package-win.mjs --zip",
+    "installer:win": "node scripts/build-installer.mjs",
+    "doctor": "node scripts/doctor.mjs"
+  },
+  "devDependencies": {
+    "electron": "44.7.0"
+  }
+}

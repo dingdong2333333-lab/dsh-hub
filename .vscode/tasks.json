@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Test",
+      "type": "shell",
+      "command": "npm test",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start dev app",
+      "type": "shell",
+      "command": "npm start",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Package portable Windows app",
+      "type": "shell",
+      "command": "npm run package:win",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

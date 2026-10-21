@@ -1,0 +1,18 @@
+node_modules/
+release/
+.data/
+.npm-cache/
+.electron-cache/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+test/.tmp/
+coverage/
+installer/payload/
+installer/*.exe
+installer/*.json
+
+# Local capture/debug artifacts
+.data-*.txt
+

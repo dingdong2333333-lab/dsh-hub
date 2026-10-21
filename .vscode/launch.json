@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "DSH Hub (Electron)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/electron/dist/electron.exe",
+      "runtimeArgs": ["${workspaceFolder}"],
+      "console": "integratedTerminal",
+      "env": {
+        "ELECTRON_RUN_AS_NODE": "",
+        "DSH_HUB_DEV": "1"
+      },
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/electron/dist/electron.exe"
+      }
+    },
+    {
+      "name": "DSH Hub (headless self-test)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/electron/dist/electron.exe",
+      "runtimeArgs": ["${workspaceFolder}", "--self-test"],
+      "console": "integratedTerminal",
+      "env": {
+        "ELECTRON_RUN_AS_NODE": ""
+      }
+    }
+  ]
+}

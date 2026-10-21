@@ -1,0 +1,117 @@
+/* Design tokens — every color used by the UI resolves through this file. */
+:root {
+  color-scheme: dark;
+  --font-ui: "Segoe UI Variable Display", "Segoe UI", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", sans-serif;
+  --font-mono: "Cascadia Code", "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+
+  --bg: #060a11;
+  --bg-elevated: #0a111b;
+  --bg-deep: #04070d;
+  --panel: rgba(13, 21, 33, 0.78);
+  --panel-solid: #0d1521;
+  --panel-raised: #111c2b;
+  --panel-hover: #142234;
+  --panel-inset: rgba(2, 7, 13, 0.45);
+
+  --text: #e8f1f8;
+  --text-strong: #f5fbff;
+  --text-soft: #a6b7c9;
+  --text-muted: #6f8299;
+  --text-faint: #4a5b70;
+
+  --border: rgba(151, 185, 216, 0.12);
+  --border-strong: rgba(151, 185, 216, 0.22);
+  --border-faint: rgba(151, 185, 216, 0.07);
+
+  --accent: #3ee0c0;
+  --accent-rgb: 62, 224, 192;
+  --accent-blue: #5b8cff;
+  --accent-blue-rgb: 91, 140, 255;
+  --accent-orange: #ff9f6e;
+  --accent-orange-rgb: 255, 159, 110;
+  --accent-violet: #c084fc;
+  --accent-pink: #f472b6;
+  --accent-yellow: #facc15;
+
+  --success: #45d9a3;
+  --success-rgb: 69, 217, 163;
+  --warning: #f5c451;
+  --warning-rgb: 245, 196, 81;
+  --danger: #ff6b7a;
+  --danger-rgb: 255, 107, 122;
+  --info: #6da8ff;
+
+  --grad-main: linear-gradient(135deg, #3ee0c0 0%, #5b8cff 100%);
+  --grad-warm: linear-gradient(135deg, #ffb17c 0%, #ff7c9b 100%);
+  --grad-panel: linear-gradient(145deg, rgba(20, 34, 52, 0.92) 0%, rgba(11, 19, 31, 0.88) 100%);
+  --grad-hero: radial-gradient(circle at 85% 15%, rgba(62, 224, 192, 0.18), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(91, 140, 255, 0.16), transparent 48%),
+    linear-gradient(140deg, #0d1826 0%, #09111b 70%);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 0 1px rgba(62, 224, 192, 0.2), 0 0 34px rgba(62, 224, 192, 0.14);
+
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 13px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  --sidebar-w: 248px;
+  --topbar-h: 72px;
+  --page-pad: 34px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --speed: 180ms;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f6fa;
+  --bg-elevated: #ffffff;
+  --bg-deep: #e8edf4;
+  --panel: rgba(255, 255, 255, 0.86);
+  --panel-solid: #ffffff;
+  --panel-raised: #f8fafd;
+  --panel-hover: #eef3f9;
+  --panel-inset: rgba(16, 38, 62, 0.04);
+
+  --text: #172433;
+  --text-strong: #0a1420;
+  --text-soft: #51647a;
+  --text-muted: #7a8ba0;
+  --text-faint: #a0adbf;
+
+  --border: rgba(25, 53, 82, 0.12);
+  --border-strong: rgba(25, 53, 82, 0.22);
+  --border-faint: rgba(25, 53, 82, 0.06);
+
+  --accent: #0e9f83;
+  --accent-rgb: 14, 159, 131;
+  --accent-blue: #3568d9;
+  --accent-blue-rgb: 53, 104, 217;
+  --accent-orange: #e2763e;
+  --accent-orange-rgb: 226, 118, 62;
+  --accent-violet: #8b5cf6;
+  --accent-pink: #db4f8c;
+  --accent-yellow: #b98600;
+
+  --success: #0f9d76;
+  --success-rgb: 15, 157, 118;
+  --warning: #b57a00;
+  --warning-rgb: 181, 122, 0;
+  --danger: #d64357;
+  --danger-rgb: 214, 67, 87;
+  --info: #2f6fd6;
+
+  --grad-panel: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 249, 253, 0.96) 100%);
+  --grad-hero: radial-gradient(circle at 85% 15%, rgba(14, 159, 131, 0.12), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(53, 104, 217, 0.10), transparent 48%),
+    linear-gradient(140deg, #ffffff 0%, #f4f8fc 75%);
+  --shadow-sm: 0 1px 2px rgba(17, 39, 64, 0.06);
+  --shadow-md: 0 12px 26px rgba(17, 39, 64, 0.08);
+  --shadow-lg: 0 28px 70px rgba(17, 39, 64, 0.16);
+  --shadow-glow: 0 0 0 1px rgba(14, 159, 131, 0.18), 0 0 30px rgba(14, 159, 131, 0.12);
+}
