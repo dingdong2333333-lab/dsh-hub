@@ -89,7 +89,6 @@ DSH Hub is built on and informed by the following open-source projects. No sourc
 - **DSH Plugin Hub (`dsh-plugin-hub`)** — MIT License — marketplace catalog structure, browsing and install-flow reference. https://github.com/dshplugin/dsh-plugin-hub
 - **dsh-undo-savepoint** — MIT License — snapshot, pre-restore and rollback safety reference. https://github.com/lire1131/dsh-undo-savepoint
 - **dsh-recovery** — offline snapshot, rollback and safe-mode design reference. https://github.com/AndyZHENG0715/dsh-recovery
-- **dsh-app-controls** — restart and reload behavior reference; the DSH Hub implementation is independent. Source supplied by the user.
 
 Thanks to the maintainers and contributors of these projects, and to the DeepSeek Harness community for documenting the plugin and profile model.
 
