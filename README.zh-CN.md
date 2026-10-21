@@ -21,7 +21,7 @@ DSH Hub 是一个面向 DeepSeek Harness（DSH）的 Windows 桌面控制台，�
 - [DSH-Hub-0.2.1-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-win-x64.zip) — 便携版
 - [SHA256SUMS.txt](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/SHA256SUMS.txt) — 发布文件校验值
 
-发布版由本仓库构建。安装包和 zip 中的 `data/self-test.json` 已脱敏：本机路径替换为 `<data-dir>`、`<DSH_HOME>`、`<DSH_INSTALL>`，不包含真实 API Key 或 credentials 文件。
+发布版由本仓库构建。
 
 ## 环境要求
 
