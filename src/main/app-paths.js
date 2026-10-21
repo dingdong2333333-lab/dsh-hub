@@ -44,6 +44,13 @@ export function detectDshInstall(settings) {
   if (process.env.ProgramFiles) add(path.join(process.env.ProgramFiles, 'DeepSeek Harness'));
   if (process.env['ProgramFiles(x86)']) add(path.join(process.env['ProgramFiles(x86)'], 'DeepSeek Harness'));
   add('C:\\Program Files\\DeepSeek Harness');
+  if (process.platform === 'win32') {
+    // Installations are commonly placed on a secondary drive. Check the root
+    // of each local drive rather than hard-coding one machine's path.
+    for (let code = 67; code <= 90; code += 1) {
+      add(`${String.fromCharCode(code)}:\\DeepSeek Harness`);
+    }
+  }
 
   for (const dir of candidates) {
     const exe = path.join(dir, 'DeepSeek Harness.exe');
