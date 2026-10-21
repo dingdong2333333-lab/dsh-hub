@@ -15,6 +15,14 @@ DSH Hub 是一个面向 DeepSeek Harness（DSH）的 Windows 桌面控制台，�
 - **会话与 Skill**：解析多帧 zstd 会话日志，预览时间线，导出 JSONL，将会话移入系统回收站；创建、编辑、复制和删除用户 Skill。
 - **构建产物**：便携版 Electron 目录和 Inno Setup 单文件安装包。安装包支持自定义安装目录，卸载时不会删除用户数据。
 
+## 下载
+
+- [DSH-Hub-0.2.1-Setup.exe](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-Setup.exe) — 单文件 Windows 安装包
+- [DSH-Hub-0.2.1-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-win-x64.zip) — 便携版
+- [SHA256SUMS.txt](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/SHA256SUMS.txt) — 发布文件校验值
+
+发布版由本仓库构建。安装包和 zip 中的 `data/self-test.json` 已脱敏：本机路径替换为 `<data-dir>`、`<DSH_HOME>`、`<DSH_INSTALL>`，不包含真实 API Key 或 credentials 文件。
+
 ## 环境要求
 
 - Windows 10/11 x64
