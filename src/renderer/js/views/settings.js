@@ -44,7 +44,7 @@ export async function render(main, ctx) {
               </div>
               <div class="field">
                 <label class="field-label" for="setting-install-dir">DSH 安装目录 <span class="optional">可选</span></label>
-                <input class="input mono" id="setting-install-dir" value="${escapeHtml(settings.dshInstallDir || '')}" placeholder="D:\\DeepSeek Harness">
+                <input class="input mono" id="setting-install-dir" value="${escapeHtml(settings.dshInstallDir || '')}" placeholder="自动检测">
                 <div class="field-hint">用于检测内置 Office Skill 和 DSH 版本。留空会自动查找常见安装位置。</div>
               </div>
               <div class="field">
@@ -116,6 +116,15 @@ export async function render(main, ctx) {
               <div class="toggle-copy"><div class="title">减少界面动效</div><div class="desc">关闭淡入、旋转和过渡动画，适合远程桌面或低性能机器。</div></div>
               <button class="switch" type="button" role="switch" aria-checked="${Boolean(settings.ui.reduceMotion)}" data-toggle-motion></button>
             </div>
+            <div class="setting-divider"></div>
+            <div class="toggle-row">
+              <div class="toggle-copy"><div class="title">最小化到系统托盘</div><div class="desc">最小化时收起任务栏图标，应用继续在托盘运行。</div></div>
+              <button class="switch" type="button" role="switch" aria-checked="${settings.ui.minimizeToTray !== false}" data-toggle-minimize-tray></button>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-copy"><div class="title">关闭窗口时留在托盘</div><div class="desc">点击关闭按钮只隐藏窗口；从托盘菜单选择“退出 DSH Hub”才会真正退出。</div></div>
+              <button class="switch" type="button" role="switch" aria-checked="${settings.ui.closeToTray !== false}" data-toggle-close-tray></button>
+            </div>
           </div>
         </section>
 
@@ -164,7 +173,7 @@ export async function render(main, ctx) {
         <div class="about-card">
           <div class="about-logo">${icon('rocket', 20)}</div>
           <div class="about-name">DSH Hub</div>
-          <div class="about-version">v${escapeHtml(boot?.version || '0.1.0')} · MIT License</div>
+          <div class="about-version">v${escapeHtml(boot?.version || '0.2.2')} · Unlicense</div>
           <p class="about-desc">面向 DeepSeek Harness 的本地控制台。插件、会话、Skill 都是你的本地文件，DSH Hub 不收集任何内容。</p>
           <div class="about-links">
             <button class="btn btn-xs" data-open="dataDir">${icon('folderOpen', 12)}打开数据目录</button>
@@ -198,6 +207,23 @@ export async function render(main, ctx) {
       button.setAttribute('aria-checked', String(!next));
       toast(errorInfo(error).message, 'error');
     }
+  });
+  const toggleTraySetting = async (button, key, label) => {
+    const next = button.getAttribute('aria-checked') !== 'true';
+    button.setAttribute('aria-checked', String(next));
+    try {
+      await ctx.updateSettings({ ui: { [key]: next } });
+      toast(next ? `已开启${label}` : `已关闭${label}`, 'success', { duration: 1800 });
+    } catch (error) {
+      button.setAttribute('aria-checked', String(!next));
+      toast(errorInfo(error).message, 'error');
+    }
+  };
+  main.querySelector('[data-toggle-minimize-tray]')?.addEventListener('click', (event) => {
+    toggleTraySetting(event.currentTarget, 'minimizeToTray', '最小化到托盘');
+  });
+  main.querySelector('[data-toggle-close-tray]')?.addEventListener('click', (event) => {
+    toggleTraySetting(event.currentTarget, 'closeToTray', '关闭窗口时留在托盘');
   });
   main.querySelector('[data-toggle-confirm]')?.addEventListener('click', async (event) => {
     const button = event.currentTarget;

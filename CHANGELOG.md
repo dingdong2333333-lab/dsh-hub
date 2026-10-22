@@ -2,6 +2,17 @@
 
 All notable changes to DSH Hub are documented here.
 
+## [0.2.2] — 2026-10-22
+
+### Added
+
+- System tray support: minimize or close the window to the tray, with open, reload and quit actions. Both behaviors can be disabled in Settings.
+
+### Fixed
+
+- Plugin market search no longer re-renders the search input while a Chinese IME composition is active. The input node is preserved during composition and the query runs after compositionend.
+- The set editor no longer moves when the wheel is used in the empty area beside the dialog; only the dialog body scrolls.
+
 ## [0.2.1] — 2026-10-21
 
 ### Fixed

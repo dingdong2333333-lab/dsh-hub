@@ -1,7 +1,7 @@
 {
   "name": "dsh-hub",
   "productName": "DSH Hub",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A polished desktop control center for DeepSeek Harness plugins, sessions, and skills.",
   "keywords": [
     "deepseek-harness",

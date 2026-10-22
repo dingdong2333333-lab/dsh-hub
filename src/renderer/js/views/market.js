@@ -2,7 +2,6 @@ import { api, errorInfo } from '../api.js';
 import {
   badge,
   confirmDialog,
-  debounce,
   emptyState,
   errorState,
   escapeHtml,
@@ -24,6 +23,9 @@ const filters = {
 };
 let lastData = null;
 let boundMain = null;
+let isComposing = false;
+let pendingReload = false;
+let searchTimer = null;
 
 export async function render(main, ctx) {
   boundMain = main;
@@ -47,13 +49,27 @@ export async function render(main, ctx) {
 
 export function cleanup() {
   boundMain = null;
+  isComposing = false;
+  pendingReload = false;
+  if (searchTimer) clearTimeout(searchTimer);
+  searchTimer = null;
 }
 
 async function reload(ctx, { focusSearch = false } = {}) {
   const root = boundMain?.querySelector('[data-market-root]');
   if (!root) return;
+  // Never replace the search input while an IME composition is active. Doing
+  // so dismisses the candidate window and makes Chinese search unusable.
+  if (isComposing) {
+    pendingReload = true;
+    return;
+  }
   try {
     lastData = await api.market.list(filters, ctx.activeProfile);
+    if (isComposing) {
+      pendingReload = true;
+      return;
+    }
     root.innerHTML = renderBody(lastData, ctx);
     bindBody(root, ctx);
     if (focusSearch) {
@@ -168,11 +184,33 @@ function bindHeader(main, ctx) {
 
 function bindBody(root, ctx) {
   const search = root.querySelector('[data-market-search]');
-  search?.addEventListener('input', debounce(() => {
+  const scheduleSearch = () => {
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      if (isComposing) return;
+      filters.query = search.value.trim();
+      filters.page = 1;
+      reload(ctx, { focusSearch: true });
+    }, 280);
+  };
+  search?.addEventListener('compositionstart', () => {
+    isComposing = true;
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = null;
+  }, { passive: true });
+  search?.addEventListener('compositionend', () => {
+    isComposing = false;
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = null;
     filters.query = search.value.trim();
     filters.page = 1;
+    pendingReload = false;
     reload(ctx, { focusSearch: true });
-  }, 280));
+  });
+  search?.addEventListener('input', (event) => {
+    if (isComposing || event.isComposing) return;
+    scheduleSearch();
+  });
   root.querySelector('[data-market-category]')?.addEventListener('change', (event) => { filters.category = event.target.value; filters.page = 1; reload(ctx); });
   root.querySelector('[data-market-state]')?.addEventListener('change', (event) => { filters.state = event.target.value; filters.page = 1; reload(ctx); });
   root.querySelector('[data-market-sort]')?.addEventListener('change', (event) => { filters.sort = event.target.value; filters.page = 1; reload(ctx); });

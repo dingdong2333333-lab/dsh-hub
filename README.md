@@ -1,6 +1,6 @@
 # DSH Hub
 
-DSH Hub is a Windows desktop console for DeepSeek Harness (DSH). It collects plugin management, the community marketplace, configuration snapshots, session browsing, skills and diagnostics into one local application. Version: `0.2.1`.
+DSH Hub is a Windows desktop console for DeepSeek Harness (DSH). It collects plugin management, the community marketplace, configuration snapshots, session browsing, skills and diagnostics into one local application. Version: `0.2.2`.
 
 The application does not modify DeepSeek Harness itself. It reads DSH profiles, configuration and logs, and writes plugin metadata, sets and profile configuration only through explicit user actions.
 
@@ -13,12 +13,13 @@ The application does not modify DeepSeek Harness itself. It reads DSH profiles, 
 - **AI-assisted metadata** — generate Chinese display names, notes, tags and categories with the model configured in DSH. Supports single and batch generation with local catalog fallback.
 - **Crash diagnostics** — rotating redacted logs, crash reports, unclean-exit detection, log viewer, diagnostics export and optional model-assisted crash analysis.
 - **Sessions and skills** — decode multi-frame zstd session logs, preview timelines, export JSONL, move sessions to the recycle bin, and create, edit, duplicate or delete user skills.
+- **System tray** — minimize or close the window to the tray; the tray menu opens the window, reloads DSH or quits. Both behaviors are configurable in Settings.
 - **Packaging** — portable Electron folder build and a single-EXE Inno Setup installer. The installer supports a custom install directory and avoids deleting user data on uninstall.
 
 ## Download
 
-- [DSH-Hub-0.2.1-Setup.exe](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-Setup.exe) — single-file Windows installer
-- [DSH-Hub-0.2.1-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-win-x64.zip) — portable folder build
+- [DSH-Hub-0.2.2-Setup.exe](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.2-Setup.exe) — single-file Windows installer
+- [DSH-Hub-0.2.2-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.2-win-x64.zip) — portable folder build
 - [SHA256SUMS.txt](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/SHA256SUMS.txt) — release checksums
 
 Release binaries are built from this repository.
@@ -42,7 +43,7 @@ npm run package:zip
 The build output is written to `release/`. To build the installer:
 
 ```powershell
-$env:DSH_HUB_APP_DIR = "release\DSH-Hub-0.2.1-win-x64"
+$env:DSH_HUB_APP_DIR = "release\DSH-Hub-0.2.2-win-x64"
 npm run installer:win
 ```
 

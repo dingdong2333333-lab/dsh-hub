@@ -42,6 +42,8 @@ export class SettingsStore {
     settings.ui.theme = ['dark', 'light', 'system'].includes(settings.ui.theme) ? settings.ui.theme : 'dark';
     settings.ui.compact = Boolean(settings.ui.compact);
     settings.ui.reduceMotion = Boolean(settings.ui.reduceMotion);
+    settings.ui.minimizeToTray = settings.ui.minimizeToTray !== false;
+    settings.ui.closeToTray = settings.ui.closeToTray !== false;
     settings.safety.confirmMutations = settings.safety.confirmMutations !== false;
     settings.safety.backupRetention = clampNumber(settings.safety.backupRetention, 1, 200, 30);
     return settings;

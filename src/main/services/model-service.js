@@ -334,7 +334,7 @@ export class ModelService {
     const install = this.profileService.getInstall();
     const prompt = `请分析下面这份 DSH Hub 崩溃报告和日志尾部，帮助中文用户定位问题。
 
-应用版本：0.2.1
+应用版本：0.2.2
 DSH Hub 数据目录：${this.settings.getDataDir()}
 DSH 安装目录：${install.dir || '未检测到'}
 DSH 版本：${report.extra?.dshVersion || '未知'}

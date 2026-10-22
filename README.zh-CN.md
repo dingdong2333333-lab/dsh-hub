@@ -1,6 +1,6 @@
 # DSH Hub
 
-DSH Hub 是一个面向 DeepSeek Harness（DSH）的 Windows 桌面控制台，把插件管理、社区插件市场、配置快照、会话浏览、Skill 和诊断集中在本地一个应用中。当前版本：`0.2.1`。
+DSH Hub 是一个面向 DeepSeek Harness（DSH）的 Windows 桌面控制台，把插件管理、社区插件市场、配置快照、会话浏览、Skill 和诊断集中在本地一个应用中。当前版本：`0.2.2`。
 
 应用本身不修改 DeepSeek Harness。它读取 DSH 的 profile、配置和日志；只有在用户明确操作时，才写入插件资料、套装和 profile 配置。
 
@@ -13,12 +13,13 @@ DSH Hub 是一个面向 DeepSeek Harness（DSH）的 Windows 桌面控制台，�
 - **AI 辅助资料**：使用 DSH 已配置的模型生成中文名、备注、标签和分类；支持单个和批量生成，并可回退到本地目录资料。
 - **崩溃诊断**：轮转的脱敏日志、崩溃报告、异常退出检测、日志查看器、诊断信息导出，以及可选的模型辅助崩溃分析。
 - **会话与 Skill**：解析多帧 zstd 会话日志，预览时间线，导出 JSONL，将会话移入系统回收站；创建、编辑、复制和删除用户 Skill。
+- **系统托盘**：最小化或关闭窗口时驻留托盘；托盘菜单可打开窗口、刷新 DSH 或退出。两种行为都可以在设置中调整。
 - **构建产物**：便携版 Electron 目录和 Inno Setup 单文件安装包。安装包支持自定义安装目录，卸载时不会删除用户数据。
 
 ## 下载
 
-- [DSH-Hub-0.2.1-Setup.exe](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-Setup.exe) — 单文件 Windows 安装包
-- [DSH-Hub-0.2.1-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.1-win-x64.zip) — 便携版
+- [DSH-Hub-0.2.2-Setup.exe](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.2-Setup.exe) — 单文件 Windows 安装包
+- [DSH-Hub-0.2.2-win-x64.zip](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/DSH-Hub-0.2.2-win-x64.zip) — 便携版
 - [SHA256SUMS.txt](https://github.com/dingdong2333333-lab/dsh-hub/releases/latest/download/SHA256SUMS.txt) — 发布文件校验值
 
 发布版由本仓库构建。
@@ -42,7 +43,7 @@ npm run package:zip
 构建输出位于 `release/`。构建安装包：
 
 ```powershell
-$env:DSH_HUB_APP_DIR = "release\DSH-Hub-0.2.1-win-x64"
+$env:DSH_HUB_APP_DIR = "release\DSH-Hub-0.2.2-win-x64"
 npm run installer:win
 ```
 

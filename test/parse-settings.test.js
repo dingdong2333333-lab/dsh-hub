@@ -16,9 +16,9 @@ test('frontmatter parser reads skill metadata', () => {
 });
 
 test('credential refs parser reads only the refs map', () => {
-  const yaml = `version: 1\nrefs:\n  DEEPSEEK_API_KEY: test-credential-123\n  OTHER\_TOKEN: abc\nrecords:\n  nested:\n    secret: hidden\n`;
-  assert.equal(parseCredentialRefs(yaml, 'DEEPSEEK_API_KEY'), 'test-credential-123');
-  assert.deepEqual(parseCredentialRefs(yaml), { DEEPSEEK_API_KEY: 'test-credential-123', OTHER_TOKEN: 'abc' });
+  const yaml = `version: 1\nrefs:\n  DEEPSEEK_API_KEY: sk-test-123\n  OTHER\_TOKEN: abc\nrecords:\n  nested:\n    secret: hidden\n`;
+  assert.equal(parseCredentialRefs(yaml, 'DEEPSEEK_API_KEY'), 'sk-test-123');
+  assert.deepEqual(parseCredentialRefs(yaml), { DEEPSEEK_API_KEY: 'sk-test-123', OTHER_TOKEN: 'abc' });
 });
 
 test('extractJsonObject tolerates fences and prose', () => {
@@ -27,9 +27,8 @@ test('extractJsonObject tolerates fences and prose', () => {
 });
 
 test('secrets are removed from log-bound text', () => {
-  const fakeKey = ['sk', 'fixture', 'value'].join('-');
-  const output = redactSecrets(`api_key=${fakeKey} Authorization: Bearer unit.test`);
-  assert.doesNotMatch(output, /fixture/);
+  const output = redactSecrets('api_key=sk-abcdefgh12345678 Authorization: Bearer abc.def');
+  assert.doesNotMatch(output, /abcdefgh/);
   assert.match(output, /\*\*\*/);
 });
 
@@ -51,8 +50,13 @@ test('settings are normalized and invalid values are repaired', (t) => {
   assert.equal(updated.model.timeoutMs, 180_000);
   assert.equal(updated.model.fallbackToCatalog, false);
   assert.equal(updated.ui.theme, 'dark');
+  assert.equal(updated.ui.minimizeToTray, true);
+  assert.equal(updated.ui.closeToTray, true);
   assert.equal(updated.safety.backupRetention, 200);
   assert.equal(updated.activeProfile, 'desktop');
+  const trayDisabled = store.update({ ui: { minimizeToTray: false, closeToTray: false } });
+  assert.equal(trayDisabled.ui.minimizeToTray, false);
+  assert.equal(trayDisabled.ui.closeToTray, false);
   assert.ok(fs.existsSync(path.join(dir, 'settings.json')));
 });
 

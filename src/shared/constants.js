@@ -6,7 +6,7 @@
 
 export const APP_NAME = 'DSH Hub';
 export const APP_NAME_ZH = 'DSH 中枢';
-export const APP_VERSION = '0.2.1';
+export const APP_VERSION = '0.2.2';
 export const APP_ID = 'dev.dshhub.app';
 export const REPO_URL = 'https://github.com/your-org/dsh-hub';
 
@@ -116,6 +116,8 @@ export const DEFAULT_SETTINGS = Object.freeze({
     theme: 'dark',
     compact: false,
     reduceMotion: false,
+    minimizeToTray: true,
+    closeToTray: true,
   },
   safety: {
     confirmMutations: true,

@@ -990,7 +990,8 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  overflow-y: auto;
+  overflow: hidden;
+  overscroll-behavior: contain;
   pointer-events: auto;
 }
 
@@ -1039,7 +1040,10 @@
 }
 
 .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 6px 24px 22px;
 }
 

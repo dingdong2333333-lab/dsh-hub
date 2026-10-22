@@ -230,6 +230,11 @@ export function openModal({
   }
   wrap.append(modal);
   root.append(backdrop, wrap);
+  // A wheel over the inert area beside the dialog must not scroll the
+  // modal-wrap itself (which would move the panel); only modal-body scrolls.
+  wrap.addEventListener('wheel', (event) => {
+    if (!modal.contains(event.target)) event.preventDefault();
+  }, { passive: false });
   const previouslyFocused = document.activeElement;
   let closing = false;
 

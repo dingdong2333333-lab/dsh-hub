@@ -14,7 +14,7 @@ This folder turns a prepared portable release into a single Windows installer EX
 From the repository root:
 
 ```powershell
-$env:DSH_HUB_APP_DIR = "<delivery>\release\DSH-Hub-0.2.1-win-x64"
+$env:DSH_HUB_APP_DIR = "<delivery>\release\DSH-Hub-0.2.2-win-x64"
 $env:DSH_HUB_INSTALLER_OUT = "<delivery>"
 $env:DSH_HUB_INSTALLER_STAGE = "<delivery>\installer\payload"
 npm run installer:win
@@ -68,7 +68,7 @@ $args = @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/NOICONS',
           '/MERGETASKS=!desktopicon',
           '/DIR=E:\temp\dsh-hub-install',
           '/LOG=E:\temp\dsh-hub-install.log')
-Start-Process '<delivery>\DSH-Hub-0.2.1-Setup.exe' -ArgumentList $args -Wait
+Start-Process '<delivery>\DSH-Hub-0.2.2-Setup.exe' -ArgumentList $args -Wait
 ```
 
 In a DSH-hosted terminal, the installed app self-test may need

@@ -9,8 +9,10 @@ import {
   crashReporter,
   dialog,
   ipcMain,
+  nativeImage,
   nativeTheme,
   shell,
+  Tray,
 } from 'electron';
 
 import { APP_NAME, APP_NAME_ZH, APP_VERSION, APP_ID } from '../shared/constants.js';
@@ -54,6 +56,7 @@ const logger = new Logger({ dataDir, appVersion: APP_VERSION });
 logger.init();
 
 let mainWindow = null;
+let tray = null;
 let services = null;
 let isQuitting = false;
 let fatalError = false;
@@ -123,11 +126,7 @@ function startApp() {
   }
 
   app.on('second-instance', () => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.show();
-      mainWindow.focus();
-    }
+    showMainWindow();
   });
 
   app.whenReady().then(async () => {
@@ -147,9 +146,13 @@ function startApp() {
         dataDir,
         appRoot: APP_ROOT,
         getMainWindow: () => mainWindow,
-        onSettingsChanged: (next) => applyTheme(next),
+        onSettingsChanged: (next) => {
+          applyTheme(next);
+          updateTray();
+        },
       });
       createWindow();
+      updateTray();
       logger.info('lifecycle', 'Application ready', {
         dataDir,
         dshHome: safeCall(() => services.settings.getDshHome()),
@@ -174,12 +177,12 @@ function startApp() {
   });
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    else mainWindow?.show();
+    showMainWindow();
   });
 
   app.on('window-all-closed', () => {
-    app.quit();
+    // With a tray icon the app stays resident; closing the window only hides it.
+    if (isQuitting || !tray) app.quit();
   });
 
   app.on('before-quit', () => {
@@ -187,6 +190,10 @@ function startApp() {
   });
 
   app.on('will-quit', () => {
+    if (tray) {
+      tray.destroy();
+      tray = null;
+    }
     if (!fatalError) logger.markCleanExit(isQuitting ? 'user-quit' : 'app-quit');
   });
 }
@@ -226,6 +233,83 @@ function createServices() {
     marketplaceService,
     appControlService,
   };
+}
+
+function createTray() {
+  if (tray) return;
+  const iconFile = [path.join(APP_ROOT, 'assets', 'icon.ico'), path.join(APP_ROOT, 'assets', 'icon.png')].find((file) => fs.existsSync(file));
+  if (!iconFile) {
+    logger.warn('lifecycle', 'Tray icon is missing');
+    return;
+  }
+  const image = nativeImage.createFromPath(iconFile);
+  if (image.isEmpty()) {
+    logger.warn('lifecycle', 'Tray icon could not be loaded', { iconFile });
+    return;
+  }
+  tray = new Tray(image);
+  tray.setToolTip(`${APP_NAME} · ${APP_NAME_ZH}`);
+  tray.setContextMenu(Menu.buildFromTemplate([
+    { label: '打开 DSH Hub', click: () => showMainWindow() },
+    { label: '刷新 DSH', click: () => {
+      services?.appControlService?.reloadDsh().catch((error) => {
+        logger.warn('app-control', 'Tray reload failed', { error: error.message });
+      });
+    } },
+    { type: 'separator' },
+    { label: '退出 DSH Hub', click: () => {
+      isQuitting = true;
+      app.quit();
+    } },
+  ]));
+  tray.on('click', () => toggleMainWindow());
+  tray.on('double-click', () => showMainWindow());
+  logger.info('lifecycle', 'Tray icon created');
+}
+
+function destroyTray() {
+  if (!tray) return;
+  tray.destroy();
+  tray = null;
+}
+
+function updateTray() {
+  if (!settingsStore) return;
+  const ui = settingsStore.get().ui || {};
+  const shouldShow = ui.minimizeToTray !== false || ui.closeToTray !== false;
+  if (shouldShow) createTray();
+  else destroyTray();
+}
+
+function showMainWindow() {
+  if (!mainWindow || mainWindow.isDestroyed()) {
+    createWindow();
+    return;
+  }
+  if (mainWindow.isMinimized()) mainWindow.restore();
+  mainWindow.setSkipTaskbar(false);
+  mainWindow.show();
+  mainWindow.focus();
+}
+
+function hideToTray() {
+  if (!tray || !mainWindow || mainWindow.isDestroyed()) return;
+  saveWindowState();
+  mainWindow.hide();
+  mainWindow.setSkipTaskbar(true);
+}
+
+function saveWindowState() {
+  if (!mainWindow || mainWindow.isDestroyed() || mainWindow.isMinimized()) return;
+  try {
+    const bounds = mainWindow.getBounds();
+    writeJsonAtomicSync(path.join(dataDir, 'window-state.json'), { ...bounds, savedAt: Date.now() });
+  } catch {}
+}
+
+function toggleMainWindow() {
+  if (mainWindow?.isVisible() && !mainWindow.isMinimized()) hideToTray();
+  else showMainWindow();
 }
 
 function createWindow() {
@@ -289,9 +373,25 @@ function createWindow() {
 
   mainWindow.on('resize', saveWindowState);
   mainWindow.on('move', saveWindowState);
-  mainWindow.on('close', () => {
+  mainWindow.on('minimize', (event) => {
+    if (!tray || settingsStore?.get().ui?.minimizeToTray === false) return;
+    event.preventDefault();
+    hideToTray();
+    logger.info('lifecycle', 'Main window minimized to tray');
+  });
+  mainWindow.on('close', (event) => {
     saveWindowState();
+    if (!isQuitting && tray && settingsStore?.get().ui?.closeToTray !== false) {
+      event.preventDefault();
+      hideToTray();
+      logger.info('lifecycle', 'Main window hidden to tray');
+      return;
+    }
+    if (!isQuitting) isQuitting = true;
     logger.info('lifecycle', 'Main window closing');
+  });
+  mainWindow.on('session-end', () => {
+    isQuitting = true;
   });
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -352,13 +452,6 @@ function createWindow() {
     }
   });
 
-  function saveWindowState() {
-    if (!mainWindow || mainWindow.isDestroyed() || mainWindow.isMinimized()) return;
-    try {
-      const bounds = mainWindow.getBounds();
-      writeJsonAtomicSync(stateFile, { ...bounds, savedAt: Date.now() });
-    } catch {}
-  }
 }
 
 function applyTheme(settings) {

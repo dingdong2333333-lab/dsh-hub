@@ -33,7 +33,7 @@ The output is a portable folder:
 
 ```
 release/
-└─ DSH-Hub-0.2.1-win-x64/
+└─ DSH-Hub-0.2.2-win-x64/
    ├─ DSH-Hub.exe             (small .NET launcher with icon/version)
    ├─ DSH-Hub-Runtime.exe     (Electron runtime)
    ├─ <Electron runtime files>
@@ -45,7 +45,7 @@ release/
    └─ 启动说明.txt
 ```
 
-`--zip` additionally creates `DSH-Hub-0.2.1-win-x64.zip` with the Windows
+`--zip` additionally creates `DSH-Hub-0.2.2-win-x64.zip` with the Windows
 system `tar.exe` (fallback: PowerShell `Compress-Archive`).
 
 ## Installer
@@ -54,7 +54,7 @@ A single-EXE installer can be built from a portable release with Inno Setup 6:
 
 ```powershell
 winget install --id JRSoftware.InnoSetup -e
-$env:DSH_HUB_APP_DIR = "<delivery>\release\DSH-Hub-0.2.1-win-x64"
+$env:DSH_HUB_APP_DIR = "<delivery>\release\DSH-Hub-0.2.2-win-x64"
 $env:DSH_HUB_INSTALLER_OUT = "<delivery>"
 $env:DSH_HUB_INSTALLER_STAGE = "<delivery>\installer\payload"
 npm run installer:win
@@ -104,7 +104,7 @@ read-only with respect to the DSH profile.
 To re-run in the release folder:
 
 ```bash
-./release/DSH-Hub-0.2.1-win-x64/DSH-Hub.exe --self-test
+./release/DSH-Hub-0.2.2-win-x64/DSH-Hub.exe --self-test
 ```
 
 It overwrites `data/self-test.json` and exits with code 0 on success. To build

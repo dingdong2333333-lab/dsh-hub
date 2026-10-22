@@ -1108,6 +1108,7 @@
 .plugin-picker {
   max-height: 320px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   border: 1px solid var(--border-faint);
   border-radius: var(--radius-md);
   background: var(--panel-inset);
@@ -2366,4 +2367,10 @@ tr:hover .session-actions-cell .btn {
   .snapshot-row { flex-wrap: wrap; }
   .snapshot-row-actions { width: 100%; padding-left: 44px; }
   .snapshot-summary-path { min-width: 100%; }
+}
+
+/* Settings: tray options */
+.setting-divider {
+  border-top: 1px solid var(--line);
+  margin: 16px 0 4px;
 }
